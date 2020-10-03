@@ -3,4 +3,4 @@ Interested In Deep Learning, Architecture
 
 
 CS231n
-1. [Lecture 2 | Image Classification](docs/CS231n_1.md)
+1. [Image Classification](docs/CS231n_1.md)
