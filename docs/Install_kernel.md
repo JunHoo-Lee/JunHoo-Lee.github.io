@@ -33,8 +33,11 @@ Then, in order to access remote branch...
 ```
 $ git remote update
 ```
-- it is quite confusing, since is takes a huge amount of space... Is it really different from git clone?
+
+it is quite confusing, since is takes a huge amount of space... Is it really different from git clone?
+
 ![data_size](../images/Kernel/Install_kernel/Data_is_huge.png)
+
 Finally, change our branch to intended version
 ```
 # to see branch lists
@@ -44,3 +47,10 @@ $ git checkout origin/linux-5.8.y
 ```
 
 Compile is next step...
+
+## Questions
+
+1. what is defconfig?
+   1. we make make defconfig in linux file
+
+2. what is 
