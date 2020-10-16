@@ -4,9 +4,9 @@ SNU ECE 17
 
 CS231n
 
-1. [Image Classification](docs/CS231n_1.md)
-2. [Loss_Optimization](docs/CS231n_2.md)
-3. [BackPropagation_and_Neural_Networks](docs/CS231n_3.md)
+1. [Lecture 2](docs/CS231n_1.md)
+2. [Lecture 3](docs/CS231n_2.md)
+3. [Lecture 4](docs/CS231n_3.md)
 
 Kernel
 
@@ -14,4 +14,4 @@ Kernel
 
 CS234
 
-1. [LECTURE 1](docs/CS234/CS234_1.md)
+1. [Lecture 1](docs/CS234/CS234_1.md)
