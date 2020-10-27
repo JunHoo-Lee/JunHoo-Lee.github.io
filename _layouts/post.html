@@ -12,7 +12,10 @@ layout: default
 	{{ content }}
 	{% if site.disqus.shortname %}
         {% include disqus_comments.html %}
-    {% endif %}
+	{% endif %}
+	<script type="text/javascript"
+    src="http://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+	</script>
   </article>
 <!-- 多说评论框 start -->
 	<div class="ds-thread" data-thread-key={{ page.id }} data-title={{ page.title }} data-url={{ site.motto }}/{{ page.url }}></div>
