@@ -9,7 +9,10 @@ layout: default
   </header>
 
   <article class="post-content">
-    {{ content }}
+	{{ content }}
+	{% if site.disqus.shortname %}
+        {% include disqus_comments.html %}
+    {% endif %}
   </article>
 <!-- 多说评论框 start -->
 	<div class="ds-thread" data-thread-key={{ page.id }} data-title={{ page.title }} data-url={{ site.motto }}/{{ page.url }}></div>
