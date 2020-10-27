@@ -2,7 +2,7 @@
 layout: post
 title: "Python tutorial"
 comments: true
-categories: misc
+categories: python
 ---
 
 ## Advanced indexing

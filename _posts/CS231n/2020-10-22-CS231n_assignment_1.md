@@ -1,4 +1,10 @@
-# CS231n assignment 1
+---
+layout: post
+title: "assignment 1"
+comments: true
+categories: cs231n
+---
+
 
 ## Linear SVM
 

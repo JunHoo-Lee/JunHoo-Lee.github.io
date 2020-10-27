@@ -2,7 +2,7 @@
 layout: post
 title: "Kernel installation"
 comments: true
-categories: misc
+categories: kernel
 ---
 
 
