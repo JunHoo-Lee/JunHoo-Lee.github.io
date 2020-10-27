@@ -1,4 +1,10 @@
-# Set the Environment then compile Kernel
+---
+layout: post
+title: "Kernel installation"
+comments: true
+categories: misc
+---
+
 
 ## Environment
 

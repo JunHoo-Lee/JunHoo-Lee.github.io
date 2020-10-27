@@ -1,4 +1,9 @@
-# Python_tutorial
+---
+layout: post
+title: "Python tutorial"
+comments: true
+categories: misc
+---
 
 ## Advanced indexing
 

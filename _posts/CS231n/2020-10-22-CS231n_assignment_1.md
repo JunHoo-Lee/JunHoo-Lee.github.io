@@ -35,7 +35,7 @@ The first question is to implement gradient with given loss.
 
 When we think its backpropagation, it should be like
 
-![svm_grad](../images/CS231n/assignment1/svm_gradient.png)
+![svm_grad](./image/svm_gradient.png)
 
 So without regression, its gradient should be
 
@@ -205,3 +205,6 @@ I used advanced indexing, and broadcasting.
     It is possible that once in a while a dimension in the gradcheck will not match exactly. What could such a discrepancy be caused by? Is it a reason for concern? What is a simple example in one dimension where a gradient check could fail? How would change the margin affect of the frequency of this happening? *Hint: the SVM loss function is not strictly speaking differentiable*
 
     because of my poor english...
+
+![softmax_incorrect](/images/softmax_incorrect.png)
+![softmax_correct](/images/softmax_correct.png)

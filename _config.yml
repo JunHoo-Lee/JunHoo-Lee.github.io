@@ -15,6 +15,11 @@ github_username:  jekyll
 markdown: kramdown
 
 
+defaults:
+  - scope:
+      path: "/_posts"
+    values:
+      image: true
 
 # Disqus settings
 disqus:
