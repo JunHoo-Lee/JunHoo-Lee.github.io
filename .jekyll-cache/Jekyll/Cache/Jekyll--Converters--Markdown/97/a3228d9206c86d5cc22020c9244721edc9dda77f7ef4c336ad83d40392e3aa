@@ -1,0 +1,170 @@
+I"L<h2 id="the-image-classification-task">The Image Classification Task</h2>
+
+<ul>
+  <li>System receives image data - select from fixed category label. actually really hard problem! 컴퓨터는 단순한 그림이 아닌 숫자들의 집합으로서 관측한다.</li>
+</ul>
+
+<p><img src="https://img1.daumcdn.net/thumb/R720x0.q80/?scode=mtistory2&amp;fname=http%3A%2F%2Fcfile24.uf.tistory.com%2Fimage%2F990B12355B8D1E7F254816" alt="ex_screenshot" /></p>
+
+<h3 id="semantic-gap">semantic gap</h3>
+<p>조금의 픽셀 변화가 엄청난 숫자의 변화를 만든다. e.g. tort camera angle.</p>
+
+<h3 id="challenges">Challenges</h3>
+<ul>
+  <li>illumination, deformation, Occlusion(숨어있는 경우)… Can we handle these problems simultaneously?</li>
+</ul>
+
+<p>Problems should be…</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">classify_image</span><span class="p">(</span><span class="n">image</span><span class="p">):</span>
+    <span class="c1">#code
+</span>    <span class="k">return</span> <span class="n">class_label</span>
+</code></pre></div></div>
+
+<p>Is there any strict algorithm? No! there are no explicit algorithm.</p>
+
+<h3 id="eg">E.G.</h3>
+<ul>
+  <li>Find edges -&gt; Find corners… not scaleable approach.</li>
+</ul>
+
+<h3 id="data---driven-approach">Data - Driven Approach</h3>
+<ol>
+  <li>Collect a dataset of images&amp; labels.</li>
+  <li>Train them (Train Model)</li>
+  <li>Evaluate the classifier</li>
+</ol>
+
+<h3 id="so-skeleton-should-be">So skeleton should be…</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">images</span><span class="p">,</span><span class="n">labels</span><span class="p">):</span>
+    <span class="c1">#learn something
+</span>    <span class="k">return</span> <span class="n">model</span>
+
+<span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">test_images</span><span class="p">):</span>
+    <span class="c1">#Predict labels
+</span>    <span class="k">return</span> <span class="n">predict_labels</span>
+</code></pre></div></div>
+
+<h2 id="k-nearest-neighbot">K-Nearest Neighbot</h2>
+
+<h3 id="nearest-neighbor">Nearest Neighbor</h3>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">train</span><span class="p">(</span><span class="n">images</span><span class="p">,</span><span class="n">labels</span><span class="p">):</span>
+    <span class="c1">#Memorize all data and labels
+</span>    <span class="k">return</span> <span class="n">model</span>
+
+<span class="k">def</span> <span class="nf">predict</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">test_images</span><span class="p">):</span>
+    <span class="c1">#Predict the Label of the most similar training image
+</span>    <span class="k">return</span> <span class="n">predict_labels</span>
+</code></pre></div></div>
+
+<h4 id="example-dataset-cifar10">Example Dataset: CIFAR10</h4>
+<p><img src="https://blog.kakaocdn.net/dn/ziQcn/btqAK3vxTg0/KoOifleGHv7FgzXaSZTSC1/img.png" alt="ex_screenshot" /></p>
+
+<h3 id="problem--how-do-we-compare-them">Problem : How do we compare them?</h3>
+<h2 id="nearest-neighbor-classifier">Nearest Neighbor Classifier</h2>
+
+<h3 id="distance-metric">Distance Metric</h3>
+<ul>
+  <li>
+    <p>L1 Distance: 
+  \(d_1(I_1,I_2) = \sum_p |I_1^p - I_2^p|\)</p>
+
+    <ul>
+      <li>concrete ways to calculate difference between images</li>
+      <li>for each test image : Find closest train image, then find the closest image which is closest to test image.</li>
+      <li>bad, it is fast for training, but bad for prediction(O(N))</li>
+      <li>Noisy…</li>
+      <li>K Nearest Neighbor
+        <ul>
+          <li>Instead of copying label from nearest neighbor, take majority vote for k nearest neighbor.</li>
+          <li>이 부분도 마찬가지</li>
+        </ul>
+      </li>
+      <li><img src="/images/k%20nearest.png" alt="ex_screenshot" /></li>
+    </ul>
+  </li>
+  <li>L2(Euclidean) distance
+  \(d_1(I_1,I_2) = \sqrt{\sum_p{(I_1^p - I_2^p)^2}}\)</li>
+  <li>Difference between two metric
+    <ul>
+      <li>If we rotate -&gt; it would change its length</li>
+      <li>if vector have some important metric - L1 fit</li>
+      <li>if the metric is just general -&gt; L2 is fit</li>
+      <li>이 부분 확실하게 해결 안 됨.</li>
+      <li>For example, if we intend to calculate categorical data….</li>
+    </ul>
+  </li>
+</ul>
+
+<h3 id="problem---is-there-any-best-k-or-metric">problem - is there any best k or metric?</h3>
+<ul>
+  <li>Depends on problem.</li>
+  <li>Idea #1 fit on training idea?
+    <ul>
+      <li>terrible! our goal is to solve unseen data</li>
+    </ul>
+  </li>
+  <li>Idea #2 : split data into train and test.
+    <ul>
+      <li>Terrible also! : it would overfit to test set - is it can represent unseen data?</li>
+    </ul>
+  </li>
+  <li>Idea #3 Split data into train, val and test.</li>
+  <li><img src="/images/data_split.png" alt="data_split" /></li>
+  <li>Idea #4 Cross-Validation
+    <ul>
+      <li>not used in deep learning frequently - training is expensive… althohugh most valid.</li>
+      <li>k-Nearest Neighbor is Never used!
+        <ul>
+          <li>very slow</li>
+          <li>Distance metrics are not that much informative</li>
+          <li>Dataset is expotential</li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="linear-classification">Linear Classification</h2>
+<h3 id="super-important">Super important!</h3>
+
+<h3 id="in-large-scale">In large scale</h3>
+<ul>
+  <li>Image(32x32x3) → f(x,W) → class scores</li>
+  <li>W is parameter</li>
+  <li>compare to K-nearest, it has parameter!</li>
+  <li>How do we make function f ?</li>
+  <li>simplestic! f(x,W)(10x1) = Wx(10x3072*3072x1) + b(bias, 10c1)</li>
+  <li>Why b is need?(e.g. if cat or dog data is large compare to other data, maybe bias of cat and dog is large)</li>
+  <li>High dimensional space
+<img src="/images/linear_classifier.png" alt="ex_linear" /></li>
+</ul>
+
+<h3 id="hard-cases-for-a-linear-classifier">Hard cases for a linear classifier</h3>
+<ul>
+  <li>separating from odds and even</li>
+  <li>we have to draw line???
+<img src="/images/hard_cases.png" alt="hard_Cases" /></li>
+</ul>
+
+<h3 id="next-time">next time</h3>
+<ul>
+  <li>Loss function (how do we know ‘good’ W?)</li>
+  <li>Optimization (Can we find W which minimizes the loss?_</li>
+  <li>ConvNets (tweak the functional form of f)</li>
+</ul>
+
+<h3 id="questions">questions</h3>
+<ul>
+  <li>Hard cases for a linear classifier</li>
+  <li>algorithms of k-nearest
+    <h3 id="reference">reference</h3>
+    <p><a href="https://www.youtube.com/watch?v=OoUX-nOEjG0&amp;t=1345s">CS231-LECTURE</a></p>
+  </li>
+</ul>
+
+<iframe width="800" height="600" src="https://www.youtube.com/embed/OoUX-nOEjG0" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+
+:ET

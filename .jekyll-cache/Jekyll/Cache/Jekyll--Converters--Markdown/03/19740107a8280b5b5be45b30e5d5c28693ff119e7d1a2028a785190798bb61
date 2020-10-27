@@ -1,0 +1,102 @@
+I"<p>How we train Neural Network?</p>
+
+<p>index</p>
+
+<p><a href="#activation-functions">1.Activation Functions</a>
+<a href="#data-preprocessing">2.Data preprocessing</a>
+<a href="#weight-initalization">3.Weight Initalization</a>
+<a href="#batch-normalization">4.Batch Normalization</a>
+<a href="#babysitting-the-learning-process">5.Babysitting the Learning Process</a>
+<a href="#hyperparameter-optimization">6.Hyperparameter Optimization</a></p>
+
+<p>Objectives</p>
+
+<ol>
+  <li>How do we setup at the beginning?</li>
+  <li>Training dynamics</li>
+  <li>Evaluation</li>
+</ol>
+
+<p>Part 1</p>
+
+<h2 id="activation-functions">Activation Functions</h2>
+
+<p><img src="https://mblogthumb-phinf.pstatic.net/MjAyMDAyMjVfMTQ3/MDAxNTgyNjA5NDY3MTY3.228bUv_5mrol1w7X0NiFMD1UNru9zyf3yIJGcON-An0g.3Kzynlja9y_F9yTfANl937elQAK1pTGoJ_al7Om7TYsg.PNG.handuelly/image.png?type=w800" alt="Functions" /></p>
+
+<ul>
+  <li>Sigmoid function
+\(\sigma(x) = {1\over1+e^{-x}}\)
+    <ul>
+      <li>how does gradient look like?</li>
+    </ul>
+  </li>
+</ul>
+
+<p>problems</p>
+
+<ol>
+  <li>
+    <p>Saturated neurons <code class="language-plaintext highlighter-rouge">kill</code> the gradents</p>
+
+    <ul>
+      <li>in the very negative - positive region, it is almost flat</li>
+      <li>it kills gradient flow</li>
+      <li>Sigmoid outputs are not zero-centered
+        <ul>
+          <li>It will move all same way, very inefficient update(all positive, or negative update)</li>
+          <li><img src="/images/sigmoid_gradient.png" alt="sigmoid_grad" /></li>
+          <li>
+            <h3 id="dw-소리하는거-이해안됨">DW 소리하는거 이해안됨</h3>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </li>
+  <li>
+    <p>exp() 자체가 계산할 때 계산량이 많다</p>
+  </li>
+</ol>
+
+<ul>
+  <li>tanh function
+    <ul>
+      <li>[-1,1] 만 본다</li>
+      <li>zero, centered</li>
+      <li>마찬가지로 gradient 에서 손해본다</li>
+    </ul>
+  </li>
+  <li>ReLU function
+    <ul>
+      <li>Computes f(x) = max(0,x)</li>
+      <li>No saturation in + region(advantage)</li>
+      <li>계산량이 적다(compare to exp,tanh…)</li>
+      <li>이게 다른것들보다 수렴이 빠르다</li>
+      <li>neuron을 더 잘 모사한다</li>
+      <li><code class="language-plaintext highlighter-rouge">zero_centered</code> 가 아니다</li>
+      <li>annoyance</li>
+    </ul>
+  </li>
+</ul>
+
+<ol>
+  <li></li>
+</ol>
+
+<h3 id="data-preprocessing">Data Preprocessing</h3>
+
+<h3 id="weight-initalization">Weight Initalization</h3>
+
+<h3 id="batch-normalization">Batch Normalization</h3>
+
+<h3 id="babysitting-the-learning-process">Babysitting the Learning Process</h3>
+
+<h2 id="hyperparameter-optimization">Hyperparameter Optimization</h2>
+
+<h3 id="reference">reference</h3>
+<p><a href="https://www.youtube.com/watch?v=wEoyxE0GP2M&amp;t=452s">CS231-LECTURE</a></p>
+
+<div align="center">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/wEoyxE0GP2M" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</div>
+
+:ET

@@ -1,0 +1,57 @@
+I"I<p>How we train Neural Network?</p>
+
+<p>index</p>
+
+<p><a href="#activation-functions">1.Activation Functions</a>
+<a href="#data-preprocessing">2.Data preprocessing</a>
+<a href="#weight-initalization">3.Weight Initalization</a>
+<a href="#batch-normalization">4.Batch Normalization</a>
+<a href="#babysitting-the-learning-process">5.Babysitting the Learning Process</a>
+<a href="#hyperparameter-optimization">6.Hyperparameter Optimization</a></p>
+
+<p>Objectives</p>
+
+<ol>
+  <li>How do we setup at the beginning?</li>
+  <li>Training dynamics</li>
+  <li>Evaluation</li>
+</ol>
+
+<p>Part 1</p>
+
+<h2 id="activation-functions">Activation Functions</h2>
+
+<ul>
+  <li>Sigmoid function
+\(\sigma(x) = {1\over1+e^{-x}}\)
+<img src="/images/sigmoid.png" alt="sigmoid" />
+    <ul>
+      <li>how does gradient look like?</li>
+    </ul>
+  </li>
+</ul>
+
+<p>problems</p>
+
+<ol>
+  <li>Saturated neurons ‘kill’ the gradents</li>
+</ol>
+
+<h3 id="data-preprocessing">Data Preprocessing</h3>
+
+<h3 id="weight-initalization">Weight Initalization</h3>
+
+<h3 id="batch-normalization">Batch Normalization</h3>
+
+<h3 id="babysitting-the-learning-process">Babysitting the Learning Process</h3>
+
+<h2 id="hyperparameter-optimization">Hyperparameter Optimization</h2>
+
+<h3 id="reference">reference</h3>
+<p><a href="https://www.youtube.com/watch?v=wEoyxE0GP2M&amp;t=452s">CS231-LECTURE</a></p>
+
+<div align="center">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/wEoyxE0GP2M" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen=""></iframe>
+</div>
+
+:ET

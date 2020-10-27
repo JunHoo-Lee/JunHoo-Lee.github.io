@@ -1,0 +1,58 @@
+I"R<h2 id="environment">Environment</h2>
+
+<p>In order to do so, I selected WSL2 rather than VMware-sort of virtual machine.</p>
+
+<p>reaons are:</p>
+<ol>
+  <li>Authority : It is microsoft-proofed program</li>
+  <li>Share filesystem : I can see its files from my windows-vscode!</li>
+  <li>Swag</li>
+</ol>
+
+<p>So I uninstalled vmware, then installed WSL2 with following microsoft’s guideline</p>
+
+<p><a href="https://docs.microsoft.com/ko-kr/windows/wsl/install-win10">WSL_2_Installation</a></p>
+
+<p>Although it required several re-boot, but it caused no anxiety since its process is really simple. but shortlyafter I installed ubuntu…</p>
+
+<p><img src="../images/Kernel/Install_kernel/First_sight.png" alt="CUI" /></p>
+
+<p>OMG!!!! It didn’t support GUI!</p>
+
+<p>But it was ok…. Since What I really want is just compile the kernel.</p>
+
+<p>So the next step should be download kernel version</p>
+
+<p>My aim is to download 5.8y version by using git.</p>
+
+<p>First, we have to set our origin as linux kernel repository,</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git remote add origin https://git.kernel.org/pub/scm/linux/kernel/git/stable/linux.git
+</code></pre></div></div>
+<p>Then, in order to access remote branch…</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code>$ git remote update
+</code></pre></div></div>
+
+<p>it is quite confusing, since is takes a huge amount of space… Is it really different from git clone?</p>
+
+<p><img src="../images/Kernel/Install_kernel/Data_is_huge.png" alt="data_size" /></p>
+
+<p>Finally, change our branch to intended version</p>
+<div class="language-plaintext highlighter-rouge"><div class="highlight"><pre class="highlight"><code># to see branch lists
+$ git branch -a
+# change branch to intended version
+$ git checkout origin/linux-5.8.y 
+</code></pre></div></div>
+
+<p>Compile is next step…</p>
+
+<h2 id="questions">Questions</h2>
+
+<ol>
+  <li>what is defconfig?
+    <ol>
+      <li>we make make defconfig in linux file</li>
+    </ol>
+  </li>
+  <li>what is</li>
+</ol>
+:ET

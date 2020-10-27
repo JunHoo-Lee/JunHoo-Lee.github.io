@@ -1,0 +1,32 @@
+I"<h2 id="convolution-layer">Convolution Layer</h2>
+
+<ul>
+  <li>It preserve spatial structure</li>
+  <li>always extend the full depth of the input volume</li>
+  <li><img src="/images/convnet.png" alt="ConvLayer" /></li>
+  <li>In the example, border will be truncated by 4, since its filter size is 5x5x3</li>
+  <li>the output is called activation filter (i.e. each filter produces activation layer)</li>
+  <li>There could be multiple filters. Then its output dimention would be #filtersx28x28 since we slide the filter</li>
+  <li>If we take the stride(interval of the filter slide) 2, it would be 3*3</li>
+  <li>So in general, Output dim would be (N-F)/stride + 1</li>
+  <li><img src="/images/convstride.png" alt="formula" /></li>
+  <li>if we want to make dimension fit, we put zero pad at the border(so we get integer dim)</li>
+  <li>in neuron view, 5x5 filter -&gt; 5x5 receptive field for each neuron</li>
+  <li>5 filter -&gt; 5 neurons looking at the same region</li>
+</ul>
+
+<h2 id="pooing-layer">Pooing layer</h2>
+
+<ul>
+  <li>Downsamples the activation layer</li>
+  <li>e.g. MAX POOLING</li>
+  <li><img src="./image/maxpool.png" alt="maxpool" /></li>
+  <li>it has no overlap</li>
+  <li>why MAX? not average?
+    <ul>
+      <li>in order to get most impressive feature</li>
+    </ul>
+  </li>
+  <li></li>
+</ul>
+:ET
