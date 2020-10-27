@@ -1,5 +1,6 @@
 ---
-layout: encrypted
+layout: posts
+comments: true
 ---
 
 Homemade Spaghetti Sauce is so full of flavor and it's easy to make it in large batches for freezing or canning for easy homemade meals that are prepared ahead.
