@@ -1,0 +1,212 @@
+I"�Z<h2 id="linear-svm">Linear SVM</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">dW</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">W</span><span class="p">.</span><span class="n">shape</span><span class="p">)</span> <span class="c1"># initialize the gradient as zero
+</span>
+    <span class="c1"># compute the loss and the gradient
+</span>    <span class="n">num_classes</span> <span class="o">=</span> <span class="n">W</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>
+    <span class="n">num_train</span> <span class="o">=</span> <span class="n">X</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="n">loss</span> <span class="o">=</span> <span class="mf">0.0</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_train</span><span class="p">):</span>
+        <span class="n">scores</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">].</span><span class="n">dot</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
+        <span class="n">correct_class_score</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_classes</span><span class="p">):</span>
+            <span class="k">if</span> <span class="n">j</span> <span class="o">==</span> <span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]:</span>
+                <span class="k">continue</span>
+            <span class="n">margin</span> <span class="o">=</span> <span class="n">scores</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">-</span> <span class="n">correct_class_score</span> <span class="o">+</span> <span class="mi">1</span> <span class="c1"># note delta = 1
+</span>            <span class="k">if</span> <span class="n">margin</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="n">loss</span> <span class="o">+=</span> <span class="n">margin</span>
+                <span class="n">dW</span><span class="p">[:,</span><span class="n">j</span><span class="p">]</span> <span class="o">+=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+                <span class="n">dW</span><span class="p">[:,</span><span class="n">y</span><span class="p">[</span><span class="n">i</span><span class="p">]]</span> <span class="o">-=</span> <span class="n">X</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
+
+    <span class="c1"># Right now the loss is a sum over all training examples, but we want it
+</span>    <span class="c1"># to be an average instead so we divide by num_train.
+</span>    <span class="n">loss</span> <span class="o">/=</span> <span class="n">num_train</span>
+    <span class="n">dW</span> <span class="o">/=</span> <span class="n">num_train</span>
+    <span class="c1"># Add regularization to the loss.
+</span>    <span class="n">loss</span> <span class="o">+=</span> <span class="n">reg</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">W</span> <span class="o">*</span> <span class="n">W</span><span class="p">)</span>
+    <span class="n">dW</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">*</span><span class="n">reg</span><span class="o">*</span><span class="n">W</span>
+
+</code></pre></div></div>
+
+<p>The first question is to implement gradient with given loss.</p>
+
+<p>When we think its backpropagation, it should be like</p>
+
+<p><img src="./image/svm_gradient.png" alt="svm_grad" /></p>
+
+<p>So without regression, its gradient should be</p>
+
+<ol>
+  <li>For correct class, (#classes_should_be_edited)*(X)</li>
+  <li>For should_be_corrected_classes(which score exceeds Cor_score + 1), X</li>
+</ol>
+
+<p>and with gradient, 2W * Reg</p>
+
+<h2 id="fully-vectorized-algorithm">Fully vectorized algorithm</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="n">tot_score</span> <span class="o">=</span> <span class="n">X</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
+    <span class="n">correct_class_score</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">X</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="n">correct_class_score</span> <span class="o">=</span> <span class="n">tot_score</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="n">X</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="n">y</span><span class="p">]</span>
+    <span class="c1"># make all elements score - correct_class_score + 1
+</span>    <span class="n">tot_score</span> <span class="o">-=</span> <span class="n">correct_class_score</span><span class="p">[:,</span><span class="n">np</span><span class="p">.</span><span class="n">newaxis</span><span class="p">]</span>
+    <span class="n">tot_score</span> <span class="o">+=</span> <span class="mi">1</span>
+    <span class="c1"># We don't regard right class margin
+</span>    <span class="n">tot_score</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="n">X</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># Find below_zero_elements(apply max function)
+</span>    <span class="n">tot_score</span><span class="p">[</span><span class="n">tot_score</span> <span class="o">&lt;=</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="c1"># calculate loss
+</span>    <span class="n">loss</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">tot_score</span><span class="p">)</span><span class="o">/</span><span class="p">(</span><span class="n">X</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+    <span class="c1"># add regularlization term
+</span>    <span class="n">loss</span> <span class="o">+=</span> <span class="n">reg</span> <span class="o">*</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">W</span> <span class="o">*</span> <span class="n">W</span><span class="p">)</span>
+    
+
+    <span class="c1"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+</span>
+    <span class="c1">#############################################################################
+</span>    <span class="c1"># TODO:                                                                     #
+</span>    <span class="c1"># Implement a vectorized version of the gradient for the structured SVM     #
+</span>    <span class="c1"># loss, storing the result in dW.                                           #
+</span>    <span class="c1">#                                                                           #
+</span>    <span class="c1"># Hint: Instead of computing the gradient from scratch, it may be easier    #
+</span>    <span class="c1"># to reuse some of the intermediate values that you used to compute the     #
+</span>    <span class="c1"># loss.                                                                     #
+</span>    <span class="c1">#############################################################################
+</span>    <span class="c1"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+</span>    
+    <span class="c1">#Set gradient which Dimension is N x C x D
+</span>    <span class="n">grad_large</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">zeros</span><span class="p">(</span><span class="n">shape</span> <span class="o">=</span> <span class="p">(</span><span class="n">tot_score</span><span class="p">.</span><span class="n">shape</span> <span class="o">+</span><span class="p">(</span><span class="n">X</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">],)))</span>    
+    <span class="c1">#indicate which col should be calculated (i.e. score + 1- cor_score &gt; 0)
+</span>    <span class="n">grad_large</span><span class="p">[</span><span class="n">tot_score</span> <span class="o">&gt;</span> <span class="mi">0</span><span class="p">]</span> <span class="o">=</span> <span class="mi">1</span>
+    <span class="c1"># calculate how many rows are to be calcuated and its # is the number of modifying correct class row
+</span>    <span class="c1">#indicate correct score
+</span>    <span class="n">grad_large</span><span class="p">[</span><span class="n">np</span><span class="p">.</span><span class="n">arange</span><span class="p">(</span><span class="n">X</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]),</span><span class="n">y</span><span class="p">]</span> <span class="o">-=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">grad_large</span><span class="p">,</span> <span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># change its order of Dimension N x C x D to N x D x C
+</span>    <span class="n">grad_large</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">swapaxes</span><span class="p">(</span><span class="n">grad_large</span><span class="p">,</span> <span class="mi">2</span> <span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="c1"># make element_wise multiplication to X
+</span>    <span class="n">grad_large</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">grad_large</span><span class="p">,</span><span class="n">X</span><span class="p">[...,</span><span class="n">np</span><span class="p">.</span><span class="n">newaxis</span><span class="p">])</span>
+    <span class="c1"># make sum
+</span>    <span class="n">dW</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">grad_large</span><span class="p">,</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">0</span><span class="p">)</span>
+    <span class="c1"># divide by its training number
+</span>    <span class="n">dW</span> <span class="o">/=</span> <span class="n">X</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="c1"># add regression term
+</span>    <span class="n">dW</span> <span class="o">+=</span> <span class="mi">2</span><span class="o">*</span><span class="n">reg</span><span class="o">*</span><span class="n">W</span>
+    <span class="c1"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+</span></code></pre></div></div>
+
+<h2 id="make-batch-of-linear_classifierpy">make batch of linear_classifier.py</h2>
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="k">for</span> <span class="n">it</span> <span class="ow">in</span> <span class="n">tqdm</span><span class="p">(</span><span class="nb">range</span><span class="p">(</span><span class="n">num_iters</span><span class="p">)):</span>
+            <span class="n">X_batch</span> <span class="o">=</span> <span class="bp">None</span>
+            <span class="n">y_batch</span> <span class="o">=</span> <span class="bp">None</span>
+
+            <span class="c1">#########################################################################
+</span>            <span class="c1"># TODO:                                                                 #
+</span>            <span class="c1"># Sample batch_size elements from the training data and their           #
+</span>            <span class="c1"># corresponding labels to use in this round of gradient descent.        #
+</span>            <span class="c1"># Store the data in X_batch and their corresponding labels in           #
+</span>            <span class="c1"># y_batch; after sampling X_batch should have shape (batch_size, dim)   #
+</span>            <span class="c1"># and y_batch should have shape (batch_size,)                           #
+</span>            <span class="c1">#                                                                       #
+</span>            <span class="c1"># Hint: Use np.random.choice to generate indices. Sampling with         #
+</span>            <span class="c1"># replacement is faster than sampling without replacement.              #
+</span>            <span class="c1">#########################################################################
+</span>            <span class="c1"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+</span>            <span class="n">batch_index</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">random</span><span class="p">.</span><span class="n">choice</span><span class="p">(</span><span class="n">X</span><span class="p">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="n">batch_size</span><span class="p">)</span>
+            <span class="n">X_batch</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">batch_index</span><span class="p">]</span>
+            <span class="n">y_batch</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">batch_index</span><span class="p">]</span>
+
+            <span class="c1"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+</span>
+            <span class="c1"># evaluate loss and gradient
+</span>            <span class="n">loss</span><span class="p">,</span> <span class="n">grad</span> <span class="o">=</span> <span class="bp">self</span><span class="p">.</span><span class="n">loss</span><span class="p">(</span><span class="n">X_batch</span><span class="p">,</span> <span class="n">y_batch</span><span class="p">,</span> <span class="n">reg</span><span class="p">)</span>
+            <span class="n">loss_history</span><span class="p">.</span><span class="n">append</span><span class="p">(</span><span class="n">loss</span><span class="p">)</span>
+
+            <span class="c1"># perform parameter update
+</span>            <span class="c1">#########################################################################
+</span>            <span class="c1"># TODO:                                                                 #
+</span>            <span class="c1"># Update the weights using the gradient and the learning rate.          #
+</span>            <span class="c1">#########################################################################
+</span>            <span class="c1"># *****START OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+</span>
+            <span class="bp">self</span><span class="p">.</span><span class="n">W</span> <span class="o">-=</span> <span class="n">learning_rate</span> <span class="o">*</span> <span class="n">grad</span>
+
+            <span class="c1"># *****END OF YOUR CODE (DO NOT DELETE/MODIFY THIS LINE)*****
+</span>
+            <span class="k">if</span> <span class="n">verbose</span> <span class="ow">and</span> <span class="n">it</span> <span class="o">%</span> <span class="mi">100</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+                <span class="k">print</span><span class="p">(</span><span class="s">'iteration %d / %d: loss %f'</span> <span class="o">%</span> <span class="p">(</span><span class="n">it</span><span class="p">,</span> <span class="n">num_iters</span><span class="p">,</span> <span class="n">loss</span><span class="p">))</span>
+
+        <span class="k">return</span> <span class="n">loss_history</span>
+</code></pre></div></div>
+
+<p>it was simple, pseudo code was..</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">batch_indices</span> <span class="o">=</span> <span class="n">get_array_indices</span>
+    <span class="n">batch</span> <span class="o">=</span> <span class="n">X</span><span class="p">[</span><span class="n">batch_indices</span><span class="p">]</span>
+    <span class="n">batch_label</span> <span class="o">=</span> <span class="n">y</span><span class="p">[</span><span class="n">batch_indices</span><span class="p">]</span>
+    <span class="n">get</span> <span class="n">loss</span> <span class="ow">and</span> <span class="n">by</span> <span class="n">loss</span> <span class="n">function</span>
+
+    <span class="n">update</span> <span class="n">gradient</span>
+</code></pre></div></div>
+
+<h2 id="make-prediction">make prediction</h2>
+
+<p>it was more simpleeeeee</p>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>    <span class="n">score</span> <span class="o">=</span> <span class="n">X</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W</span><span class="p">)</span>
+    <span class="n">ans</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">argmax</span><span class="p">(</span><span class="n">score</span><span class="p">,</span><span class="n">axis</span> <span class="o">=</span> <span class="mi">1</span><span class="p">)</span>
+</code></pre></div></div>
+
+<p>I used advanced indexing, and broadcasting.</p>
+
+<h2 id="question">Question</h2>
+
+<ol>
+  <li>
+    <p>I want to index with array but it can’t
+ for example.</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">,</span><span class="mi">2</span><span class="p">],[</span><span class="mi">3</span><span class="p">,</span><span class="mi">4</span><span class="p">]])</span>
+ <span class="n">a</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]]</span>
+ <span class="o">&gt;&gt;&gt;</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">4</span>
+ <span class="c1">## but
+</span> <span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">],[</span><span class="mi">0</span><span class="p">,</span><span class="mi">1</span><span class="p">]])</span>
+ <span class="n">a</span><span class="p">[</span><span class="n">b</span><span class="p">]</span>
+ <span class="o">&gt;&gt;&gt;</span> <span class="n">array</span><span class="p">([[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+         <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]],</span>
+
+     <span class="p">[[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">],</span>
+         <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">]]])</span>
+ <span class="c1">## ???
+</span></code></pre></div>    </div>
+  </li>
+  <li>
+    <p>why fully-vectorized algorithm doesn’t make the runtime fast?</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="n">Naive</span> <span class="n">loss</span> <span class="ow">and</span> <span class="n">gradient</span><span class="p">:</span> <span class="n">computed</span> <span class="ow">in</span> <span class="mf">0.132488</span><span class="n">s</span>
+ <span class="n">Vectorized</span> <span class="n">loss</span> <span class="ow">and</span> <span class="n">gradient</span><span class="p">:</span> <span class="n">computed</span> <span class="ow">in</span> <span class="mf">0.124351</span><span class="n">s</span>
+ <span class="n">difference</span><span class="p">:</span> <span class="mf">0.000000</span>
+</code></pre></div>    </div>
+  </li>
+  <li>
+    <p>What is sampling with replacement?</p>
+
+    <div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code> <span class="c1"># Hint: Use np.random.choice to generate indices. Sampling with         #
+</span> <span class="c1"># replacement is faster than sampling without replacement.              #
+</span></code></pre></div>    </div>
+
+    <ul>
+      <li>solved, it was option of np.ramdom.choice(in Korean, 복원추출 옵션)</li>
+    </ul>
+  </li>
+  <li>
+    <p><strong>Inline Question 1</strong></p>
+
+    <p>It is possible that once in a while a dimension in the gradcheck will not match exactly. What could such a discrepancy be caused by? Is it a reason for concern? What is a simple example in one dimension where a gradient check could fail? How would change the margin affect of the frequency of this happening? <em>Hint: the SVM loss function is not strictly speaking differentiable</em></p>
+
+    <p>because of my poor english…</p>
+  </li>
+</ol>
+
+<p><img src="/images/softmax_incorrect.png" alt="softmax_incorrect" />
+<img src="/images/softmax_correct.png" alt="softmax_correct" /></p>
+:ET

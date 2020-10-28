@@ -1,0 +1,112 @@
+I"`
+<h1 id="introduction">Introduction</h1>
+
+<ul>
+  <li>Optimizations</li>
+  <li>Delayed consequences
+    <ul>
+      <li>no immediate outcome feedback</li>
+    </ul>
+  </li>
+  <li>Exploration
+    <ul>
+      <li>learn about how the world works</li>
+      <li>data is censored!</li>
+    </ul>
+  </li>
+  <li>Generalization</li>
+</ul>
+
+<h2 id="policy">policy</h2>
+
+<p>mapping from past experience to action</p>
+
+<p>In AI planning, it doesn’t involve exploration since it has model.</p>
+
+<p>If we learn from experiences, it doesn’t contain Delayed consequences.</p>
+
+<h2 id="sequentail-decision-making-under-uncercertaintity">Sequentail decision making under uncercertaintity</h2>
+
+<p>Goal : Select actions to maximize total expected future reward
+May require balancing immediate &amp; long term reward</p>
+
+<h2 id="importance-of-reward-function">Importance of reward function</h2>
+
+<ul>
+  <li>RL tents to overfit toward easier problem!</li>
+  <li>
+    <p>So we should design reward function seriously</p>
+  </li>
+  <li>Each time step t:
+    <ul>
+      <li>Agent takes an action $a_t$</li>
+      <li>World updates given action $a_t$ then omits observation $o_t$ and reward $r_t$</li>
+      <li>Agent receives $a_t$ and $o_t$</li>
+    </ul>
+  </li>
+</ul>
+
+<p>History $h_t$ = $(a_1 , o_1, r_1 … , a_t , o_t, r_t )$</p>
+
+<p>Agent decides action based on history</p>
+
+<h2 id="markov-assumption">Markov Assumption</h2>
+
+<ul>
+  <li>we only need current state in determining action, (not full history!)</li>
+</ul>
+
+<table>
+  <tbody>
+    <tr>
+      <td>$p(s_{t+1}</td>
+      <td>s_t , a_t) = p(s_{t+1}</td>
+      <td>h_t , a_t)$</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>performance ∝ sizeof$(\text{state space})^{-1}$</p>
+
+<p>Bandits</p>
+
+<ul>
+  <li>Simple case of Marcov example</li>
+  <li>action has no effect on next observation</li>
+  <li>E.g. Adsense problem(customers are independent)</li>
+</ul>
+
+<h2 id="how-the-world-changes">How the world changes</h2>
+
+<ul>
+  <li>deteministic one history + action = determined outcome</li>
+  <li>Stochastic doesn’t make determined outcome</li>
+</ul>
+
+<h2 id="model">Model</h2>
+
+<ul>
+  <li>Representation of how the world changes in response to agent’s action</li>
+</ul>
+
+<h2 id="policy-1">Policy</h2>
+
+<ul>
+  <li>simply how we make decisions</li>
+</ul>
+
+<h2 id="value">Value</h2>
+
+<ul>
+  <li>Expected sum of future rewards under particular policy $\pi$</li>
+</ul>
+
+<h2 id="exploration--exploitation">Exploration &amp; Exploitation</h2>
+
+<ul>
+  <li>things may be good now vs may be good in future</li>
+  <li>Exploitation : watch a favorite movie we’ve seen before</li>
+  <li>Exploration : Watch a new movie</li>
+</ul>
+
+:ET

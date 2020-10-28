@@ -1,0 +1,99 @@
+I"	<ol>
+  <li>Markov process</li>
+  <li>Marcov Reward Process</li>
+  <li>Markov Decision Process</li>
+</ol>
+
+<h2 id="marcoev-property">Marcoev Property</h2>
+
+\[p(s_t+1|s_t,a_t) = p(s_t+1|h_t,a_t)\]
+
+<ul>
+  <li>Future is independent of past given present</li>
+</ul>
+
+<h2 id="computing-the-value-of-a-marcov-reward-process">Computing the Value of a Marcov Reward Process</h2>
+
+<ul>
+  <li>Generate a large number number of episodes</li>
+  <li>Average returns</li>
+  <li>Concentration inequalities bound how quickly average concentrates to expected value</li>
+  <li>It doesn’t require marcov assumption</li>
+</ul>
+
+\[V(s) = R(s) + \gamma\sum_{s^`\in S}P(S^` | s) V(s^`)
+V = R + \gamma PV\]
+
+<ul>
+  <li>in this case, we know P and R, so It would be</li>
+  <li>$V = {(I-\gamma P)}^{-1} R$</li>
+  <li>Equation in MRP</li>
+</ul>
+
+<h2 id="iterative-algorithm-for-compution-value-of-a-mrp">Iterative Algorithm for Compution Value of a MRP</h2>
+
+\[V_k(s) = R(s) = \gamma \sum_{s^`\in S}P(s^` | s) V_{k-1}(s^`)\]
+
+<ul>
+  <li>Policy specifies what action to take in each state</li>
+</ul>
+
+<p>sion Process</p>
+
+<ul>
+  <li>MRP + actions</li>
+  <li>S,A,P,R</li>
+</ul>
+
+<h3 id="mdppolicy">MDP+Policy</h3>
+
+<ul>
+  <li>MDP + $\pi(a|s)$ = Markov Reward process
+\(R^{\pi}(s) = \sum_{a\in A}\pi(a|s)R(s,a)
+\\ P^\pi(s^`|s) = \sum_{a\in A}\pi(a|s)P(s^`|s,a)\)</li>
+  <li>in this way, we can see MDP as MRP</li>
+  <li>
+    <p>Iterative Algorithm
+\(V^{\pi}_k(s) =  r(s,\pi(s)) + \gamma\sum_{s^`\in S}p(s^`|s,\pi (s))V^{\pi}_{k-1}(s^`)\)</p>
+
+    <ul>
+      <li>this is called Bellman backup</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="mdp-control">MDP control</h2>
+
+<ul>
+  <li>how do we compute optimal policy?</li>
+  <li>
+    <table>
+      <tbody>
+        <tr>
+          <td>number of policy = $</td>
+          <td>A</td>
+          <td>^{</td>
+          <td>s</td>
+          <td>}$</td>
+        </tr>
+      </tbody>
+    </table>
+  </li>
+  <li>value function is unique, but optimal policy is not unique.</li>
+  <li>$\pi^*(s) = \underset{\pi}{argmax}(V^\pi(s))$</li>
+  <li>optimal policy for mdp in infinite horizon problem
+    <ul>
+      <li>Deterministic</li>
+      <li>Stationary</li>
+      <li>not unique</li>
+    </ul>
+  </li>
+</ul>
+
+<h2 id="question">Question</h2>
+
+<ol>
+  <li>why V = $\gamma$PV iff Marcov?</li>
+  <li>convergeness</li>
+</ol>
+:ET

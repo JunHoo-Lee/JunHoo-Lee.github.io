@@ -1,0 +1,157 @@
+I"<<p>How do we know bad, and good W is?</p>
+
+<h2 id="a-loss-function-tells-how-good-our-current-classifier-is">A loss function tells how good our current classifier is</h2>
+
+<ul>
+  <li>given a dataset of examples
+\({(x_i,y_i)} ^n_{i=1}\)</li>
+  <li>Where $x_i$ is image and $y_i$ is (integer) label</li>
+  <li>Loss over the dataset is a sum of loss over examples:
+\(L = {1\over N} \sum_i L_i(f(x_i,w),y_i)\)</li>
+  <li>for any tasks, there should be xs and ys with Loss function</li>
+</ul>
+
+<h3 id="multiclass-svm-loss">Multiclass Svm loss</h3>
+
+\[L_i = \sum_{j\neq y_i}
+    \begin{cases}
+        0 &amp; \text{if $s_{yi} \geq s_j + 1$} \\ s_j - s_{y_i} + 1 &amp; \text{otherwise}
+    \end{cases}
+    = \sum_{k\neq y_i} max(0,s_j - s_{y_i} + 1)\]
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code><span class="k">def</span> <span class="nf">L_i_vectorized</span><span class="p">(</span><span class="n">s</span><span class="p">,</span><span class="n">y</span><span class="p">,</span><span class="n">w</span><span class="p">):</span>
+    <span class="n">scores</span> <span class="o">=</span> <span class="n">W</span><span class="p">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">)</span>
+    <span class="n">margins</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="n">maximum</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="n">scores</span> <span class="o">-</span> <span class="n">scores</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">+</span> <span class="mi">1</span><span class="p">)</span>
+    <span class="n">margins</span><span class="p">[</span><span class="n">y</span><span class="p">]</span> <span class="o">=</span> <span class="mi">0</span>
+    <span class="n">loss_i</span> <span class="o">=</span> <span class="n">np</span><span class="p">.</span><span class="nb">sum</span><span class="p">(</span><span class="n">margins</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">loss_i</span>
+</code></pre></div></div>
+<p><img src="/images/Safety_margin.png" alt="safety_margin" /></p>
+
+<ul>
+  <li>Remember safety margin!</li>
+</ul>
+
+<h3 id="matter-of-overfitting">Matter of overfitting</h3>
+<ul>
+  <li>So we add Regularization</li>
+  <li>Model should be “simple”, so it works on test data
+<img src=".image/overfitting.png" alt="overfit" /></li>
+  <li>
+    <h4 id="occams-razor---simple-is-best">Occam’s Razor - simple is best!</h4>
+    <p>\(L(W) = {1 \over N}\sum^N_{i=1}L_i(f(x_i,W),y_i) + \gamma R(W)\)</p>
+  </li>
+  <li>$\gamma$ is regularization term</li>
+</ul>
+
+<h3 id="regularization-example">Regularization example</h3>
+<ul>
+  <li>L2 regularization</li>
+  <li>L1 regularization</li>
+  <li>(measure size of weight)</li>
+</ul>
+
+<h3 id="softmax-classifier-multinomial-logistic-regression">Softmax Classifier (Multinomial Logistic Regression)</h3>
+<ul>
+  <li>We see scores as probability distribution</li>
+</ul>
+
+<p>\(P(Y=k|X=x_i) = {e^{s_k}\over \sum_j e^{s_j}}\)
+\(L_i = \log P(Y = y_i|X =x_i)\)</p>
+
+<ul>
+  <li>It is easier to maximize log</li>
+  <li>We use numerical gradient as debugging!</li>
+</ul>
+
+<h2 id="so-code-should-be">So code should be…</h2>
+
+<div class="language-python highlighter-rouge"><div class="highlight"><pre class="highlight"><code>
+<span class="k">while</span> <span class="bp">True</span><span class="p">:</span>
+    <span class="n">weights_grad</span> <span class="o">=</span> <span class="n">evaluate_gradient</span><span class="p">(</span><span class="n">loss_fun</span><span class="p">,</span> <span class="n">data</span><span class="p">,</span> <span class="n">weights</span><span class="p">)</span>
+    <span class="n">weights</span> <span class="o">+=</span> <span class="o">-</span> <span class="n">step_size</span> <span class="o">*</span> <span class="n">weights_grad</span>
+</code></pre></div></div>
+
+<ul>
+  <li>
+    <p>usually we check step size and learning rate first</p>
+  </li>
+  <li>
+    <p>measuring exact L is really expensive</p>
+  </li>
+</ul>
+
+<h3 id="so-we-use">So we use…</h3>
+
+<h2 id="stochastic-gradient-descentsgc">Stochastic Gradient Descent(SGC)</h2>
+
+<ul>
+  <li>Get a batch of</li>
+</ul>
+
+<h3 id="comparison-between-svm-and-softmax">Comparison between SVM and Softmax</h3>
+<ul>
+  <li>SVM has a stoppoint which stops to maximize</li>
+  <li>Softmax aims to infinity</li>
+</ul>
+
+<h2 id="how-do-we-optimize-the-loss">How do We optimize the Loss?</h2>
+
+<h2 id="optimization">Optimization</h2>
+<ul>
+  <li>We cannot find optimim analytic answer</li>
+  <li>So we should Follow the slope
+    <ul>
+      <li>Gradient!</li>
+      <li>Analytic way..</li>
+      <li><img src="/images/gradient_1.png" alt="Grad" /></li>
+      <li><img src="/images/SGD.png" alt="SGD" /></li>
+    </ul>
+  </li>
+  <li>Nowadays, we split CV in two stages
+    <ol>
+      <li>Get Feature
+        <ol>
+          <li>HoG
+            <ul>
+              <li>edge representation</li>
+            </ul>
+          </li>
+          <li>Count color pixels
+            <ul>
+              <li>color information</li>
+            </ul>
+          </li>
+          <li>Bag of Words
+            <ul>
+              <li>came from NLP</li>
+              <li>count words…</li>
+              <li>instead of counting words, we extract random patches</li>
+              <li>Then Encode images</li>
+              <li><img src="/images/BOW.png" alt="BOW" /></li>
+            </ul>
+          </li>
+          <li>Convolution
+            <ul>
+              <li>Same method! but conv layer also learns how to explicit feature</li>
+            </ul>
+          </li>
+        </ol>
+      </li>
+      <li>Concat</li>
+      <li>Linear Classifier</li>
+    </ol>
+  </li>
+</ul>
+
+<h1 id="question">question</h1>
+<ul>
+  <li>what is svm? 왜나옴?</li>
+  <li><img src="/images/whichisgood.png" alt="ov" /></li>
+  <li>Hinge loss의 뜻</li>
+  <li>만약 logistic regression을 사용하면, 정규식은 언제?</li>
+</ul>
+
+<h1 id="references">References</h1>
+<p><a href="https://www.youtube.com/watch?v=h7iBpEHGVNc">CS231-LEC3</a></p>
+:ET
