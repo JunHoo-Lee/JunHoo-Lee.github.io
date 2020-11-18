@@ -41,7 +41,7 @@ The first question is to implement gradient with given loss.
 
 When we think its backpropagation, it should be like
 
-![svm_grad](./image/svm_gradient.png)
+![svm_grad](/image/svm_gradient.png)
 
 So without regression, its gradient should be
 

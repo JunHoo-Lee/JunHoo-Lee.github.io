@@ -5,6 +5,10 @@ comments: true
 categories: python
 ---
 
+## Numpy broadcasting
+
+[broadcast](https://numpy.org/doc/stable/user/basics.broadcasting.html)
+
 ## Advanced indexing
 
 ```python
