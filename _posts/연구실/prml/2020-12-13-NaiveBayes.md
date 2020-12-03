@@ -86,8 +86,8 @@ $$
 
 ## 코드 분석
 
-[CS234-LECTURE](https://www.youtube.com/watch?v=j080VBVGkfQ)
+[PRML-LECTURE](http://seslab.kaist.ac.kr/xe2/page_GBex27)
 
 <div align="center">
-  <iframe width="560" height="315" src="https://www.youtube.com/embed/j080VBVGkfQ" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/vSvEr0DTD60" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
 </div>
