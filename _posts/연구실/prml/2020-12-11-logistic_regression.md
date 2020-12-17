@@ -110,14 +110,67 @@ $$
 
 놀랍게도, 베이지안 방식으로 구한 Gaussian Naive Bayes는 결국 logistic regression의 형태와 똑같다.
 
+잠깐 Naive Bayes에 대해서 Recall하자면, 나이브 베이즈의 식은 다음과 같다.
+
 $$
-f_{NB}(x) = argmax_{Y=y}P(Y=y)\Pi_{1\leq i\leq d}P(X_i = x_i | Y= y)
+f_{NB}(x) = argmax_{Y=y}P(Y=y)\Pi_{1\leq i\leq d}P(X_i = x_i | Y= y) (1)
 $$
 
+즉 주어진 데이터 $X$에 대해서 $Y$를 최대한 잘 추정해야 하는 optimizer문제에서, 이를 베이지안으로 바꾸어 $P(Y|X)$ 가 아닌 $P(Y)P(X|Y)$ 를 maximize 하자는 것이다.
 
+기존의 Naive Bayes에선 linear한 MAL을 사용하여 이를 측정했는데, 이를 가우시안으로 측정한다면 다음과 같이 될 것이다.
+
+![ㅈㅈ](/images/2020-12-17-13-06-00.png)
+
+conjugate 가정을 위해서 $Y$의 분포도 gaussian이라고 놓았다.
+
+위 식을 (1)에 대입하면 다음과 같이 나온다.
+
+![가우시안](/images/가우시안.png)
+
+이제 위 식을 로지스틱 함수의 꼴로 만들어 보자. 우선
+
+![hi](/images/2020-12-17-13-08-10.png)
+
+다음과 같은 꼴로 바꿔준 다음, 여기다가 가우시안 가정을 추가해 보자.
+
+![ㅈㅈ](/images/2020-12-17-13-09-14.png)
+
+여기서 위 식을 logistic 꼴로 만드려면, $X$를 선형으로 만들어주어야 한다. 하지만 위 식엔 $X^2$가 존재한다. 이 항을 어떻게 없앨 수 있을까?
+
+등분산성을 가정하면 된다.
+
+![naive bayes](/images/2020-12-17-13-16-07.png)
+
+이렇게 되면 이 식은 결국 logistic regression과 꼴이 같아진다.
+
+## Logistic Regression과 Gaussian Naive Bayes의 차이
+
+여기서 위 두 식이 꼴은 같지만, 거기까지 유도하는 데에 들어간 가정들은 사뭇 다르다는 것을 유념해야 한다.
+
+가우시안 naive bayes의 경우 많은 가정들을 하였다.
+
+1. 모든 변수들이 독립이라는것을 가정하였다. (Naive)
+2. 등분산성을 가정하였다.
+3. prior 분포를 가정하였다.(Bayes)
+4. Y의 베르누이 분포가정을 하였다.
+
+또한 위 두 식은 형태는 같지만 추정하는 파라미터의 개수가 다르다.
+
+Gaussian Naive Bayes는
+
+$4d$(각 Attribut의 분산과 평균을 알아야 하므로) + 1 ($\pi_1,\pi_2$ 둘중의 하나는 알아야 한다) 개의 파라미터가 필요하지만,
+
+Logistic regression은 그냥 $X\theta$이니까 bias term까지 합쳐서 d+1개면 된다.
+
+## Generative - Discriminative Pair
+
+$P(Y|X)$를 어떻게 Tackle할것인가를 묻는 것이다.
+
+Generative Model은 이를 베이지안 방식으로 접근해 $P(Y|X) = \frac{P(X|Y)P(X)}{P(X)}$로 보겠다는 것이고, 당연히 이 경우엔 분포를 생성해서 그 분포를 보아야 한다
+
+Discriminative는 이를 분포로 보지 않고, 문자 그대로 $P(Y|X)$를 풀겠다는 것이다.
 
 ## 질문
 
 Logistic Regression은 MLE, Naive Bayes는 MAP로 추정한다고 생각할 수 있음. 그런데 왜 굳이 다 MLE혹은 MAP로만 추정하려고 하는가? 덧셈과 곱셈의 차이?
-
-Logisitc Regression과 Naive Bayes 꼴이 다른 이유?
