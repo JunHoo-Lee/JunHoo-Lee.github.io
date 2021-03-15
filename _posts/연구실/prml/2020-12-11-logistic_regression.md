@@ -116,7 +116,9 @@ $$
 f_{NB}(x) = argmax_{Y=y}P(Y=y)\Pi_{1\leq i\leq d}P(X_i = x_i | Y= y) (1)
 $$
 
-즉 주어진 데이터 $X$에 대해서 $Y$를 최대한 잘 추정해야 하는 optimizer문제에서, 이를 베이지안으로 바꾸어 $P(Y|X)$ 가 아닌 $P(Y)P(X|Y)$ 를 maximize 하자는 것이다.
+즉 주어진 데이터 $X$에 대해서 $Y$를 최대한 잘 추정해야 하는 optimizer문제에서, 
+
+이를 베이지안으로 바꾸어 $P(Y|X)$ 가 아닌 $P(Y)P(X|Y)$ 를 maximize 하자는 것이다.
 
 기존의 Naive Bayes에선 linear한 MAL을 사용하여 이를 측정했는데, 이를 가우시안으로 측정한다면 다음과 같이 될 것이다.
 
