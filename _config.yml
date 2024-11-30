@@ -156,6 +156,7 @@ include:
   - .htaccess
   - _pages
   - files
+  - _dsvstatic
 exclude:
   - "*.sublime-project"
   - "*.sublime-workspace"
