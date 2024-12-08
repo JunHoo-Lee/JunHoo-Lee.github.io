@@ -1,0 +1,9 @@
+.results-carousel {
+  display: flex;
+  overflow: hidden;
+}
+
+.item {
+  flex: 0 0 calc(33.33% - 10px); /* 화면을 3등분 */
+  margin: 0 5px; /* 여백 */
+}
