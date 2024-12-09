@@ -176,67 +176,7 @@ layout: null
 </section>
 
 
-<!-- Image carousel -->
-<section class="hero is-small">
-  <div class="hero-body">
-    <div class="container">
-      <div id="results-carousel" class="carousel results-carousel">
-       <div class="item">
-        <!-- Your image here -->
-        <img src="/_dsvstatic/images/carousel1.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-          First image description.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="/_dsvstatic/images/carousel2.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-          Second image description.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="/_dsvstatic/images/carousel3.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-         Third image description.
-       </h2>
-     </div>
-     <div class="item">
-      <!-- Your image here -->
-      <img src="/_dsvstatic/images/carousel4.jpg" alt="MY ALT TEXT"/>
-      <h2 class="subtitle has-text-centered">
-        Fourth image description.
-      </h2>
-    </div>
-  </div>
-</div>
-</div>
-</section>
-<!-- End image carousel -->
 
-
-
-
-<!-- Youtube video -->
-<section class="hero is-small is-light">
-  <div class="hero-body">
-    <div class="container">
-      <!-- Paper video. -->
-      <h2 class="title is-3">Video Presentation</h2>
-      <div class="columns is-centered has-text-centered">
-        <div class="column is-four-fifths">
-          
-          <div class="publication-video">
-            <!-- Youtube embed code here -->
-            <iframe src="https://www.youtube.com/embed/JkaxUblCGz0" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-<!-- End youtube video -->
 
 <!-- Video carousel -->
 <section class="hero is-small">
@@ -247,7 +187,6 @@ layout: null
           <!-- Video 1 -->
           <video controls autoplay loop muted>
             <source src="/_dsvstatic/videos/output_combined.mp4" type="video/mp4">
-            Your browser does not support the video tag.
           </video>
           <h2 class="subtitle has-text-centered">
             The process of generating DSVs.
@@ -257,7 +196,6 @@ layout: null
           <!-- Video 2 -->
           <video controls autoplay loop muted>
             <source src="/_dsvstatic/videos/output_combined2.mp4" type="video/mp4">
-            Your browser does not support the video tag.
           </video>
           <h2 class="subtitle has-text-centered">
             The process of generating DSVs.
@@ -268,6 +206,61 @@ layout: null
   </div>
 </section>
 <!-- End video carousel -->
+
+
+<!-- Image carousel -->
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <div id="results-carousel" class="carousel results-carousel">
+       <div class="item">
+        <!-- Your image here -->
+        <img src="/_dsvstatic/pdfs/cifar100_example.jpg" alt="MY ALT TEXT"/>
+        <h2 class="subtitle has-text-centered">
+          An example of DSVs generated from a deepKKT condition model trained on CIFAR100.
+        </h2>
+      </div>
+      <div class="item">
+        <!-- Your image here -->
+        <img src="/_dsvstatic/pdfs/imagenet_example.jpg" alt="MY ALT TEXT"/>
+        <h2 class="subtitle has-text-centered">
+          An example of DSVs generated from a deepKKT condition model trained on ImageNet.
+        </h2>
+      </div>
+      <div class="item">
+        <!-- Your image here -->
+        <img src="/_dsvstatic/pdfs/distill_table.jpg" alt="MY ALT TEXT"/>
+        <h2 class="subtitle has-text-centered">
+         Similar to Support Vectors, DSVs itself can act as representative of the model. Using its characteristics, we used generated DSVs as a distilled images and it achieved state-of-the-art performance in few-shot distillation area.
+       </h2>
+     </div>      
+     <div class="item">
+        <!-- Your image here -->
+        <img src="/_dsvstatic/pdfs/dsv_latent.jpg" alt="MY ALT TEXT"/>
+        <h2 class="subtitle has-text-centered">
+         As DSVs use class labels as latent variables, they can be used to generate images with high fidelity.
+       </h2>
+     </div>
+     <div class="item">
+      <!-- Your image here -->
+      <img src="/_dsvstatic/pdfs/explanation.jpg" alt="MY ALT TEXT"/>
+      <h2 class="subtitle has-text-centered">
+        Similar to Support Vectors, DSVs also Visualize decision boundary, meaning, we can understand its decision criteria. For example, generated cat DSVs exhibit exaggerated ears. So we can reduce its probability by erasing its ear. Also, only adding three facial dots makes cat into dog.
+      </h2>
+    </div>
+     <div class="item">
+      <!-- Your image here -->
+      <img src="/_dsvstatic/pdfs/dsv_xai.jpg" alt="MY ALT TEXT"/>
+      <h2 class="subtitle has-text-centered">
+        More examples of DSVs which can be used for XAI.
+      </h2>
+    </div>
+  </div>
+</div>
+</div>
+</section>
+<!-- End image carousel -->
+
 
 
 <!-- Paper poster -->
