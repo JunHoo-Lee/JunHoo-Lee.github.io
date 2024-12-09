@@ -136,18 +136,13 @@ layout: null
 <section class="hero teaser">
   <div class="container is-max-desktop">
     <div class="hero-body">
-      <video poster="" id="tree" autoplay controls muted loop height="100%">
-        <!-- Your video here -->
-        <source src="/_dsvstatic/videos/banner_video.mp4"
-        type="video/mp4">
-      </video>
+      <img src="/_dsvstatic/pdfs/main_figure.jpg" alt="Main Figure" height="100%" />
       <h2 class="subtitle has-text-centered">
-        Aliquam vitae elit ullamcorper tellus egestas pellentesque. Ut lacus tellus, maximus vel lectus at, placerat pretium mi. Maecenas dignissim tincidunt vestibulum. Sed consequat hendrerit nisl ut maximus. 
+        DSVs generated from a deepKKT condition model, trained on ImageNet, CIFAR10, and CIFAR100. Each image is produced without referencing the original training data.
       </h2>
     </div>
   </div>
 </section>
-<!-- End teaser video -->
 
 <!-- Paper abstract -->
 <section class="section hero is-light">
@@ -165,6 +160,20 @@ layout: null
   </div>
 </section>
 <!-- End paper abstract -->
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <h2 class="subtitle has-text-centered">
+        Our goal is to find Deep support vectors in 'any' trained model. As the Support Vectors can 1. Visualize decision boundary 2. Can express the model within few images, corresponding support vectors in deep learning model can 1. unlock the black-box of deep learning model 2. Can distill data from trained model.
+      </h2>
+      <img src="/_dsvstatic/images/kkt_cond.jpg" alt="MY ALT TEXT" />
+      <h2 class="subtitle has-text-centered">
+        In this paper, we propose DeepKKT condition, an adaptation of traditional KKT condition for deep learning models. Using DeepKKT condition, we can find DSVs in 'deployed' models (any trained model with any training dataset)
+      </h2>
+    </div>
+  </div>
+</section>
 
 
 <!-- Image carousel -->
