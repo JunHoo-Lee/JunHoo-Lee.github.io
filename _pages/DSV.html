@@ -167,7 +167,7 @@ layout: null
       <h2 class="subtitle has-text-centered">
         Our goal is to find Deep support vectors in 'any' trained model. As the Support Vectors can 1. Visualize decision boundary 2. Can express the model within few images, corresponding support vectors in deep learning model can 1. unlock the black-box of deep learning model 2. Can distill data from trained model.
       </h2>
-      <img src="/_dsvstatic/images/kkt_cond.jpg" alt="MY ALT TEXT" />
+      <img src="/_dsvstatic/pdfs/kkt_cond.jpg" alt="MY ALT TEXT" />
       <h2 class="subtitle has-text-centered">
         In this paper, we propose DeepKKT condition, an adaptation of traditional KKT condition for deep learning models. Using DeepKKT condition, we can find DSVs in 'deployed' models (any trained model with any training dataset)
       </h2>
@@ -207,60 +207,79 @@ layout: null
 </section>
 <!-- End video carousel -->
 
-
 <!-- Image carousel -->
 <section class="hero is-small">
   <div class="hero-body">
     <div class="container">
       <div id="results-carousel" class="carousel results-carousel">
-       <div class="item">
-        <!-- Your image here -->
-        <img src="/_dsvstatic/pdfs/cifar100_example.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-          An example of DSVs generated from a deepKKT condition model trained on CIFAR100.
-        </h2>
+        <div class="item custom-carousel-item">
+          <!-- Your image here -->
+          <img src="/_dsvstatic/pdfs/cifar100_example.jpg" alt="MY ALT TEXT" class="custom-carousel-image"/>
+          <h2 class="subtitle has-text-centered custom-carousel-text">
+            An example of DSVs generated from a deepKKT condition model trained on CIFAR100.
+          </h2>
+        </div>
+        <div class="item custom-carousel-item">
+          <!-- Your image here -->
+          <img src="/_dsvstatic/pdfs/imagenet_example.jpg" alt="MY ALT TEXT" class="custom-carousel-image"/>
+          <h2 class="subtitle has-text-centered custom-carousel-text">
+            An example of DSVs generated from a deepKKT condition model trained on ImageNet.
+          </h2>
+        </div>
+        <div class="item custom-carousel-item">
+          <!-- Your image here -->
+          <img src="/_dsvstatic/pdfs/distill_table.jpg" alt="MY ALT TEXT" class="custom-carousel-image"/>
+          <h2 class="subtitle has-text-centered custom-carousel-text">
+            Similar to Support Vectors, DSVs itself can act as representative of the model. Using its characteristics, we used generated DSVs as a distilled images and it achieved state-of-the-art performance in few-shot distillation area.
+          </h2>
+        </div>
+        <div class="item custom-carousel-item">
+          <!-- Your image here -->
+          <img src="/_dsvstatic/pdfs/dsv_latent.jpg" alt="MY ALT TEXT" class="custom-carousel-image"/>
+          <h2 class="subtitle has-text-centered custom-carousel-text">
+            As DSVs use class labels as latent variables, they can be used to generate images with high fidelity.
+          </h2>
+        </div>
+        <div class="item custom-carousel-item">
+          <!-- Your image here -->
+          <img src="/_dsvstatic/pdfs/explanation.jpg" alt="MY ALT TEXT" class="custom-carousel-image"/>
+          <h2 class="subtitle has-text-centered custom-carousel-text">
+            Similar to Support Vectors, DSVs also Visualize decision boundary, meaning, we can understand its decision criteria. For example, generated cat DSVs exhibit exaggerated ears. So we can reduce its probability by erasing its ear. Also, only adding three facial dots makes cat into dog.
+          </h2>
+        </div>
+        <div class="item custom-carousel-item">
+          <!-- Your image here -->
+          <img src="/_dsvstatic/pdfs/dsv_xai.jpg" alt="MY ALT TEXT" class="custom-carousel-image"/>
+          <h2 class="subtitle has-text-centered custom-carousel-text">
+            More examples of DSVs which can be used for XAI.
+          </h2>
+        </div>
       </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="/_dsvstatic/pdfs/imagenet_example.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-          An example of DSVs generated from a deepKKT condition model trained on ImageNet.
-        </h2>
-      </div>
-      <div class="item">
-        <!-- Your image here -->
-        <img src="/_dsvstatic/pdfs/distill_table.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-         Similar to Support Vectors, DSVs itself can act as representative of the model. Using its characteristics, we used generated DSVs as a distilled images and it achieved state-of-the-art performance in few-shot distillation area.
-       </h2>
-     </div>      
-     <div class="item">
-        <!-- Your image here -->
-        <img src="/_dsvstatic/pdfs/dsv_latent.jpg" alt="MY ALT TEXT"/>
-        <h2 class="subtitle has-text-centered">
-         As DSVs use class labels as latent variables, they can be used to generate images with high fidelity.
-       </h2>
-     </div>
-     <div class="item">
-      <!-- Your image here -->
-      <img src="/_dsvstatic/pdfs/explanation.jpg" alt="MY ALT TEXT"/>
-      <h2 class="subtitle has-text-centered">
-        Similar to Support Vectors, DSVs also Visualize decision boundary, meaning, we can understand its decision criteria. For example, generated cat DSVs exhibit exaggerated ears. So we can reduce its probability by erasing its ear. Also, only adding three facial dots makes cat into dog.
-      </h2>
-    </div>
-     <div class="item">
-      <!-- Your image here -->
-      <img src="/_dsvstatic/pdfs/dsv_xai.jpg" alt="MY ALT TEXT"/>
-      <h2 class="subtitle has-text-centered">
-        More examples of DSVs which can be used for XAI.
-      </h2>
     </div>
   </div>
-</div>
-</div>
 </section>
 <!-- End image carousel -->
 
+<style>
+/* 새 CSS 클래스 추가 */
+.custom-carousel-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.custom-carousel-image {
+  max-width: 60%;
+  height: auto;
+}
+
+.custom-carousel-text {
+  max-width: 60%;
+  text-align: center;
+  margin-top: 1rem;
+}
+</style>
 
 
 <!-- Paper poster -->
