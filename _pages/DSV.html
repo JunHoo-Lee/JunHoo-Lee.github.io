@@ -144,7 +144,17 @@ layout: null
   </div>
 </section>
 
-<!-- Paper abstract -->
+<!-- Teaser video -->
+<section class="hero teaser">
+  <div class="container is-max-desktop">
+    <div class="hero-body">
+      <video autoplay loop muted playsinline width="100%">
+        <source src="/_dsvstatic/videos/output_2x3_final_slowed.mp4" type="video/mp4">
+      </video>
+    </div>
+  </div>
+</section><!-- Paper abstract -->
+
 <section class="section hero is-light">
   <div class="container is-max-desktop">
     <div class="columns is-centered has-text-centered">
@@ -174,6 +184,31 @@ layout: null
     </div>
   </div>
 </section>
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <img src="/_dsvstatic/pdfs/hinge_1.png" alt="MY ALT TEXT" />
+      <h2 class="subtitle has-text-centered">
+        As support vector itself becomes a model, stationarity condition can be pharaprased as as 'model weights should be constructed solely from support vectors'. The most interesting part of this condition is that when we exploit gradient descent using hinge loss, we get exactly same result as stationarity condition.
+      </h2>
+    </div>
+  </div>
+</section>
+
+
+<section class="hero is-small">
+  <div class="hero-body">
+    <div class="container">
+      <img src="/_dsvstatic/pdfs/hinge_2.png" alt="MY ALT TEXT" />
+      <h2 class="subtitle has-text-centered">
+        Out stationarity condition becomes a generalization of hinge loss.
+      </h2>
+    </div>
+  </div>
+</section>
+
 
 
 <section class="hero is-small">
@@ -243,6 +278,13 @@ layout: null
           <h2 class="subtitle has-text-centered custom-carousel-text">
             Similar to Support Vectors, DSVs itself can act as representative of the model. Using its characteristics, we used generated DSVs as a distilled images and it achieved state-of-the-art performance in few-shot distillation area.
           </h2>
+          <div class="item custom-carousel-item">
+            <!-- Your image here -->
+            <h2 class="subtitle has-text-centered custom-carousel-text">
+              An example of other feature inversion methods, which does not show clear imges. Also, they are rely on loss ascent.
+            </h2>
+            <img src="/_dsvstatic/pdfs/maco_images.png" alt="MY ALT TEXT" class="custom-carousel-image"/>
+          </div>
           <img src="/_dsvstatic/pdfs/distill_table.jpg" alt="MY ALT TEXT" class="custom-carousel-image"/>
         </div>
         <div class="item custom-carousel-item">
