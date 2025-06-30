@@ -628,6 +628,10 @@ jekyll_get_json:
   - data: resume
     json: assets/json/resume.json # it can also be an url
 
+# If you want to use the cv.yml instead of resume.json, comment out the jekyll_get_json section above
+# and uncomment the cv_source section below.
+# cv_source: _data/cv.yml
+
 jsonresume:
   - basics
   - work
